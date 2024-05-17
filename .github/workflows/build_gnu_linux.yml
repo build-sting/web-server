@@ -1,0 +1,20 @@
+name: Build
+
+on: 
+  push:
+    branches: [ prod ]
+
+jobs:
+  build-linux:
+    name: Build on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build with GCC
+        run: gcc -o server server.c mongoose.c
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled-binary
+          path: server
